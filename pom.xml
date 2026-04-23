@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2026 IKE Community
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  -->
+<!--
+  IKE Community — Example Project (Java + docs)
+  ══════════════════════════════════════════════
+
+  A standalone Java project that inherits from ike-parent and
+  demonstrates the combination of Java source, tests, and the IKE
+  documentation pipeline in a single build.
+
+  Build:
+    mvn clean verify                       # HTML only
+    mvn clean verify -Dike.pdf.prawn       # HTML + Prawn PDF
+-->
+<project xmlns="http://maven.apache.org/POM/4.1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.1.0
+         http://maven.apache.org/xsd/maven-4.1.0.xsd"
+         root="true">
+    <modelVersion>4.1.0</modelVersion>
+
+    <parent>
+        <groupId>network.ike.platform</groupId>
+        <artifactId>ike-parent</artifactId>
+        <version>1</version>
+    </parent>
+
+    <groupId>network.ike.examples</groupId>
+    <artifactId>example-project</artifactId>
+    <version>1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>IKE Example Project</name>
+    <description>
+        Example Java project demonstrating IKE documentation pipeline
+        integration with Java source, tests, and Koncept macros.
+    </description>
+    <url>https://github.com/IKE-Network/example-project</url>
+    <inceptionYear>2026</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>IKE Community</name>
+        <url>https://ike.network</url>
+    </organization>
+
+    <distributionManagement>
+        <site>
+            <id>ike-site</id>
+            <url>scpexe://proxy/srv/ike-site/examples/${project.artifactId}</url>
+        </site>
+    </distributionManagement>
+
+    <dependencies>
+        <!-- IKE Build Standards — Claude instruction files.
+             Version managed by ike-parent.
+             scope=provided: not needed at runtime, only unpacked at validate. -->
+        <dependency>
+            <groupId>network.ike.tooling</groupId>
+            <artifactId>ike-build-standards</artifactId>
+            <classifier>claude</classifier>
+            <type>zip</type>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- IKE Build Standards — shared build config (checkstyle, PMD, etc.). -->
+        <dependency>
+            <groupId>network.ike.tooling</groupId>
+            <artifactId>ike-build-standards</artifactId>
+            <classifier>config</classifier>
+            <type>zip</type>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- IKE Documentation Resources — themes, assembly descriptors, configs. -->
+        <dependency>
+            <groupId>network.ike.docs</groupId>
+            <artifactId>ike-doc-resources</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- DocBook XSL — stylesheets for XEP/FOP DocBook→XSL-FO→PDF pipeline. -->
+        <dependency>
+            <groupId>network.ike.docs</groupId>
+            <artifactId>docbook-xsl</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Fonts for PDF generation (minimal subset - 13 TTFs, ~4MB) -->
+        <dependency>
+            <groupId>network.ike.docs</groupId>
+            <artifactId>minimal-fonts</artifactId>
+            <type>zip</type>
+        </dependency>
+
+        <!-- Test Dependencies — versions managed by ike-parent -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

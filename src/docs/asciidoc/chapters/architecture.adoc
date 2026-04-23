@@ -1,0 +1,51 @@
+=== Project Structure
+
+The project follows Maven standard directory layout:
+
+[source]
+----
+example-project/
+├── src/
+│   ├── main/
+│   │   └── java/               # Java source code
+│   │       └── org/ike/example/
+│   │           └── Concept.java
+│   ├── test/
+│   │   └── java/               # Test source code
+│   │       └── org/ike/example/
+│   │           └── ConceptTest.java
+│   └── docs/
+│       └── asciidoc/           # Documentation source
+│           ├── index.adoc
+│           └── chapters/
+├── pom.xml
+└── target/
+    ├── classes/                # Compiled Java
+    ├── test-classes/           # Compiled tests
+    └── generated-docs/         # Generated documentation
+        ├── html/
+        └── pdf-{renderer}/
+----
+
+=== Maven Parent Hierarchy
+
+The project inherits from the single IKE parent POM:
+
+[plantuml]
+....
+@startuml
+skinparam rectangleBorderColor #999999
+skinparam arrowColor #666666
+skinparam defaultFontName Noto Sans
+
+rectangle "ike-parent" as A #e1f5ff
+rectangle "example-project" as C #e8f5e9
+
+A --> C
+
+A ..> "AsciiDoc Pipeline" : provides
+A ..> "Java 25 Config" : provides
+A ..> "Test Frameworks" : provides
+C ..> "JAR + Docs" : produces
+@enduml
+....

@@ -1,0 +1,122 @@
+= IKE Example Project Documentation
+:author: IKE Community
+:email: info@ike.network
+:revnumber: {project-version}
+:revdate: {docdate}
+:doctype: book
+:toc: left
+:toclevels: 3
+:sectnums:
+:sectnumlevels: 4
+:icons: font
+:source-highlighter: coderay
+:experimental:
+
+[abstract]
+--
+This document demonstrates the IKE Community Maven AsciiDoc
+pipeline integrated with a Java project.
+It shows how to combine Java source code,
+tests, and professional documentation generation in a single Maven module.
+--
+
+== Introduction
+
+The IKE Example Project demonstrates how Java projects use the
+IKE documentation pipeline.
+It inherits from `java-parent`,
+which provides both the Java 25 compiler configuration and the
+full AsciiDoc toolchain from `ike-parent`.
+
+For a comprehensive test of all pipeline features (diagrams,
+typography,
+layout, all 6 PDF renderers),
+see the `doc-example` module instead.
+
+=== What This Project Shows
+
+* Java records with validation and factory methods
+* JUnit 5 + AssertJ test patterns
+* Koncept macro integration with Java source
+* Including Java source in AsciiDoc documentation
+* Maven parent chain: `ike-parent` -> `java-parent` -> `example-project`
+
+== Architecture
+
+include::chapters/architecture.adoc[]
+
+== Concept Model
+
+[NOTE]
+.Koncept Notation
+====
+This document uses _Koncept_ (with a K) to refer to formally
+identified terminology atoms --
+entities with a UUID,
+a position in the subsumption hierarchy,
+and a machine-readable definition.  When you see
+k:DiabetesMellitus[],
+that is a specific,
+formally identified Koncept.  The word "concept" (lowercase,
+no brackets) retains its ordinary English meaning.
+====
+
+The core `Concept` class represents a clinical terminology Koncept:
+
+[source,java]
+----
+public record Concept(
+    long conceptId,
+    String fullySpecifiedName,
+    String preferredTerm,
+    String definition
+) {
+    // Validation and methods...
+}
+----
+
+=== Key Features
+
+Primitive vs Fully Defined:: Koncepts can be classified as primitive (incomplete definition) or fully defined (necessary and sufficient conditions).
+
+Semantic Tags:: FSNs include semantic tags like `(finding)`, `(disorder)`, `(procedure)` to disambiguate homonyms.
+
+Validation:: All fields are validated in the compact constructor.
+
+== Build and Test
+
+=== Building the Project
+
+[source,bash]
+----
+# Build with HTML documentation (default)
+mvn clean verify
+
+# Build with PDF documentation (Prawn)
+mvn clean verify -Dike.pdf.prawn
+----
+
+=== Running Tests
+
+[source,bash]
+----
+# Unit tests only
+mvn test
+
+# Full verification (unit + integration tests + docs)
+mvn verify
+----
+
+== Glossary
+
+Koncept:: A formally identified terminology atom with a UUID, a position in the subsumption hierarchy, and a machine-readable definition. Rendered as k:Name[] in this document.
+
+SNOMED CT:: Systematized Nomenclature of Medicine Clinical Terms
+
+DL:: Description Logic
+
+FSN:: Fully Specified Name
+
+---
+
+_Generated from IKE Example Project version {project-version} on {docdate}_
